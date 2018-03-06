@@ -74,4 +74,5 @@
 [_番茄沙司](https://github.com/ZhangQinglian)、
 [MelonRice](https://github.com/MelonRice)、
 [gdmec07120731](https://github.com/gdmec07120731) 、
-[debuggerx01](https://github.com/debuggerx01)
+[debuggerx01](https://github.com/debuggerx01)、
+[goldhan](https://github.com/goldhan)
