@@ -63,7 +63,7 @@
 | website/custom-fonts.md  |  http://doc.flutter-dev.cn/custom-fonts/  |  no |     |   
 | website/debugging.md  | http://doc.flutter-dev.cn/debugging/   |  no |     |   
 | website/widgets-intro.md   |  http://doc.flutter-dev.cn/widgets-intro/  | no  |  [goldhan](https://github.com/goldhan)   |   
-|    |    |   |     |   
+| website/web-analogs.md   | 	http://doc.flutter-dev.cn/web-analogs/   | no  |  [tain335](https://github.com/tain335)   |   
 |    |    |   |     |   
 |    |    |   |     |   
 |    |    |   |     |   
