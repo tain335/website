@@ -57,7 +57,7 @@
 | website/get-started/setup_windows.md |  https://flutter-dev.github.io/setup-windows/  |  ok  |  [gdmec07120731](https://github.com/gdmec07120731)  |
 | website/bug_reports.md |https://flutter-dev.github.io/bug-reports/ | ok | [debuggerx01](https://github.com/debuggerx01)|
 | website/bootstrap-into-dart.md  |  https://flutter-dev.github.io/bootstrap-into-dart/ | ok | [debuggerx01](https://github.com/debuggerx01) |
-| website/android-release-build.md|  https://flutter-dev.github.io/android-release/ | ok   |     |   
+| website/android-release-build.md|  https://flutter-dev.github.io/android-release/ | ok   |  [debuggerx01](https://github.com/debuggerx01)   |   
 | website/404.md  | https://flutter-dev.github.io/404 | ok  |   [MuffinYu](https://github.com/MuffinYu)  |   
 | website/docs.md | https://flutter-dev.github.io/docs/ |  no  |     |   
 | website/custom-fonts.md  |  https://flutter-dev.github.io/custom-fonts/  |  no |     |   
