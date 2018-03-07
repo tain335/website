@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: Write Your First Flutter App
+title: 编写第一个Flutter应用
 permalink: /get-started/codelab/
 ---
 
@@ -9,12 +9,8 @@ permalink: /get-started/codelab/
          alt="Animated GIF of the app that you will be building."
          style="border: 10px solid #333; border-radius: 10px; margin-bottom: 10px" >
 </figure>
+这篇教程将指导你创建第一个Flutter应用程序。如果你熟悉面向对象程序设计和基本的编程概念（如变量，循环和条件），即可完成本教程。无需具有使用Dart语言或移动编程的相关经验。
 
-This is a guide to creating your first Flutter app. If you
-are familiar with object-oriented code and basic programming
-concepts such as variables, loops, and conditionals,
-you can complete this tutorial. You don’t need
-previous experience with Dart or mobile programming.
 
 {% comment %}
 TODO: (maybe, but later)
@@ -27,86 +23,69 @@ TODO: (maybe, but later)
 * TOC
 {:toc}
 
-<p class="h2-like">What you'll build</p>
+<p class="h2-like">你需要做什么</p>
 
-You’ll implement a simple mobile app that generates proposed names for a
-startup company. The user can select and unselect names,
-saving the best ones. The code generates ten names at a time.
-As the user scrolls, new batches of names are generated.
-The user can tap the list icon in the upper right of the app bar
-to move to a new route that lists only the favorited names.
+完成一个简单的移动应用程序，为一家创业公司进行命名推荐。用户可以选择和取消选择名称，并保存最好的一个。代码一次生成十个名称。当用户滚动时，会新生成一批名称。用户可以点击应用栏右上方的列表图标，跳转到仅显示已被收藏的名称的列表页面。
 
-The animated GIF shows how the finished app works.
+这个GIF动画可以显示出该应用是如何工作的。
 
 <div class="whats-the-point" markdown="1">
 
-<b> <a id="whats-the-point" class="anchor" href="#whats-the-point" aria-hidden="true"><span class="octicon octicon-link"></span></a>What you'll learn:</b>
+<b> <a id="whats-the-point" class="anchor" href="#whats-the-point" aria-hidden="true"><span class="octicon octicon-link"></span></a>你将会学到:</b>
 
-* Basic structure of a Flutter app.
-* Finding and using packages to extend functionality.
-* Using hot reload for a quicker development cycle.
-* How to implement a stateful widget.
-* How to create an infinite, lazily loaded list.
-* How to create and navigate to a second screen.
-* How to change the look of an app using Themes.
+* Flutter应用程序的基本结构。
+* 查找和使用package来扩展功能。
+* 使用热加载加快开发效率。
+* 如何实现一个有状态的控件。
+* 如何创建一个无限长度的延迟加载列表。
+* 如何创建并导航到第二个页面。
+* 如何使用主题更改应用程序的外观。
 
 </div>
 
 <div class="whats-the-point" markdown="1">
 
-<b> <a id="whats-the-point" class="anchor" href="#whats-the-point" aria-hidden="true"><span class="octicon octicon-link"></span></a>What you'll use:</b>
+<b> <a id="whats-the-point" class="anchor" href="#whats-the-point" aria-hidden="true"><span class="octicon octicon-link"></span></a>你将会用到:</b>
 
-You'll need to install the following:
+需要安装以下工具:
 
 <ul markdown="1">
 <li markdown="1"> Flutter SDK<br>
-    The Flutter SDK includes Flutter's engine, framework, widgets, tools,
-    and a Dart SDK. This codelab requires v0.1.4 or later.
+    Flutter SDK包括Flutter的引擎，框架，小部件，工具和Dart SDK。这个codelab需要v0.1.4或更高版本。
 </li>
 <li markdown="1"> Android Studio IDE<br>
-    This codelab features the Android Studio IDE, but you can use
-    another IDE, or work from the command line.
+    这个codelab基于the Android Studio IDE构建，但你也可以使用其他IDE，或者从命令行运行。
 </li>
-<li markdown="1"> Plugin for your IDE<br>
-    The Flutter and Dart plugins must be installed separately for your
-    IDE. Besides Android Studio, Flutter and Dart plugins are also available
-    for the [VS Code](https://code.visualstudio.com/download) and
-    [IntelliJ](https://www.jetbrains.com/idea/download/#section=mac) IDEs.
+<li markdown="1"> 安装IDE插件<br>
+    插件必须为您的编译器单独安装Flutter和Dart插件。除了Android Studio，Flutter和Dart插件也可用于 [VS Code](https://code.visualstudio.com/download) 和
+    [IntelliJ](https://www.jetbrains.com/idea/download/#section=mac)IDE。
 </li>
 </ul>
 
-See [Flutter Installation and Setup](/get-started/install/) for information on
-how to set up your environment.
+有关如何设置环境的信息，请参阅 [Flutter安装和配置](/get-started/install/)。
 
 </div>
 
-# Step 1: Create the starting Flutter app
+# 第1步：创建初始Flutter应用
 
-Create a simple, templated Flutter app, using the instructions in
-[Getting Started with your first Flutter app.](/get-started/test-drive/#create-app)
-Name the project **startup_namer** (instead of _myapp_).
+使用[第一个入门Flutter应用](/get-started/test-drive/#create-app)中的说明创建一个简单的模板化Flutter应用。将项目命名为 **startup_namer**（而不是*myapp*）。
 You’ll be modifying this starter app to create the finished app.
 
-In this codelab, you'll mostly be editing **lib/main.dart**,
-where the Dart code lives.
+在这个codelab中，将主要编辑Dart代码所在的 **lib / main.dart**。
 
 <aside class="alert alert-success" markdown="1">
-<i class="fa fa-lightbulb-o"> </i> **Tip:**
-When pasting code into your app, indentation can
-become skewed. You can fix this automatically with the Flutter tools:
+<i class="fa fa-lightbulb-o"> </i> **小贴士:**
+将代码粘贴到应用程序中时，缩进可能会错位。您可以使用Flutter工具自动修复此问题：
 
-* Android Studio / IntelliJ IDEA: Right-click the dart code and
-  select **Reformat Code with dartfmt**.
-* VS Code: Right-click and select **Format Document**.
-* Terminal: Run `flutter format <filename>`.
+* Android Studio / IntelliJ IDEA: 右键单击dart代码，然后选择 **Reformat Code with dartfmt**。
+* VS Code: 单击右键，选择 **Format Document**.
+* 命令行: 运行 `flutter format <filename>`.
 </aside>
 
 <ol markdown="1">
 
-<li markdown="1"> Replace lib/main.dart.<br>
-    Delete all of the code from **lib/main.dart**.
-    Replace with the following code, which displays "Hello World" in the center
-    of the screen.
+<li markdown="1"> 替换lib / main.dart。<br>
+删除 **lib / main.dart** 中的所有代码。替换为下面的代码，它在屏幕中心显示“Hello World”。
 
 {% prettify dart %}
 import 'package:flutter/material.dart';
@@ -132,39 +111,27 @@ class MyApp extends StatelessWidget {
 {% endprettify %}
 </li>
 
-<li markdown="1"> Run the app. You should see the following screen.
+<li markdown="1"> 运行应用程序。你应该可以看到下面的页面。
 
 <center><img src="images/hello-world-screenshot.png" alt="screenshot of hello world app"></center>
 </li>
 </ol>
 
-<p class="h2-like">Observations</p>
+<p class="h2-like">小结</p>
 
   <ul markdown="1">
-  <li markdown="1"> This example creates a Material app.
-      [Material](https://material.io/guidelines/) is a visual design language
-      that is standard on mobile and the web. Flutter offers a rich set
-      of Material widgets.
+  <li markdown="1"> 本示例创建了一个Material app。
+      [Material](https://material.io/guidelines/)设计语言是一套移动设备和网页上的视觉设计标准。Flutter提供了一套丰富的Material控件。
   </li>
-  <li markdown="1"> The main method specifies fat arrow (`=>`) notation,
-       which is short hand used for one-line functions or methods.
+  <li markdown="1"> main方法采用了 fat arrow (`=>`) 表示法，这是一种用于单行函数或方法的简写。
   </li>
-  <li markdown="1"> The app extends StatelessWidget which makes the app itself a
-       widget. In Flutter, most everything is a widget, including
-       alignment, padding, and layout.
+  <li markdown="1"> 该app继承了使它本身成为一个控件的StatelessWidget类。在Flutter中，大多数时候一切都可以看作控件, 包括alignment，padding和layout。
   </li>
-  <li markdown="1"> The Scaffold widget, from the Material library,
-       provides a default app bar, title, and a body property that
-       holds the widget tree for the home screen. The widget subtree
-       can be quite complex.
+  <li markdown="1"> Material库中的Scaffold 控件提供了默认的应用栏(app bar)，标题和构成主页面控件树结构的body属性。 控件的子树可以非常复杂。
   </li>
-  <li markdown="1"> A widget’s main job is to provide a `build()` method
-      that describes how to display the widget in terms of other,
-      lower level widgets.
+  <li markdown="1"> 控件的主要工作是提供一个`build()`方法，描述如何根据其他更低层级的控件，来对这个控件进行展示。
   </li>
-  <li markdown="1"> The widget tree for this example consists of a Center widget
-       containing a Text child widget. The Center widget aligns its
-       widget subtree to the center of the screen.
+  <li markdown="1"> 本示例的控件树由包含了Text子控件的Center控件组成。Center控件可将它的所有子控件树对齐到屏幕中心。
   </li>
 </ul>
 {% comment %}
@@ -211,23 +178,16 @@ class MyApp extends StatelessWidget {
 
 ---
 
-# Step 2: Use an external package
+# 第2步：使用外部package
 
-In this step, you’ll start using an open-source package named
-**english_words**, which contains a few thousand of the most used
-English words plus some utility functions.
+在这一步，将开始使用名为**english_words**的开源软件包 ，其中包含数千个最常用的英文单词以及一些实用功能。
 
-You can find the
-[english_words](https://pub.dartlang.org/packages/english_words)
-package, as well as many other open source packages, on
-[pub.dartlang.org](https://pub.dartlang.org/flutter/).
+可以在[pub.dartlang.org](https://pub.dartlang.org/flutter/)上找到[english_words](https://pub.dartlang.org/packages/english_words)软件包以及其他许多开源软件包。
 
 <ol markdown="1">
 
-<li markdown="1"> The pubspec file manages the assets for a Flutter app.
-    In **pubspec.yaml**, add **english_words** (3.1.0 or higher)
-    to the dependencies list.
-    The new line is highlighted below:
+<li markdown="1"> pubspec文件管理着Flutter app的静态资源文件(assets)。
+    在 **pubspec.yaml**文件中， 将**english_words**（3.1.0或更高版本）添加到依赖列表。新的一行高亮如下：
 
 <!-- skip -->
 {% prettify dart %}
@@ -240,9 +200,8 @@ dependencies:
 {% endprettify %}
 </li>
 
-<li markdown="1"> While viewing the pubspec in Android Studio's editor view,
-    click **Packages get** upper right. This pulls the package into
-    your project. You should see the following in the console:
+<li markdown="1"> 在Android Studio的editor视图中查看pubspec时,
+    点击右上角的**Packages get**，将把package拉取到项目中。你应该可以在控制台中看到以下内容：
 
 <!-- skip -->
 {% prettify dart %}
@@ -252,8 +211,7 @@ Process finished with exit code 0
 {% endprettify %}
 </li>
 
-<li markdown="1"> In **lib/main.dart**, add the import for `english_words`,
-    as shown in the highlighted line:
+<li markdown="1"> 在**lib/main.dart**中，为`english_words`添加导入，如高亮的行所示：
 
 <!-- skip -->
 {% prettify dart %}
@@ -261,23 +219,17 @@ import 'package:flutter/material.dart';
 [[highlight]]import 'package:english_words/english_words.dart';[[/highlight]]
 {% endprettify %}
 
-As you type, Android Studio gives you suggestions for libraries to
-import. It then renders the import string in gray, letting you
-know that the imported library is unused (so far).
+在键入该行时，Android Studio会为你提供有关库导入的建议。然后将导入字符串显示为灰色，让你知道导入的库尚未使用（到目前为止）。
 </li>
 
-<li markdown="1"> Use the English words package to generate the text instead of
-    using the string "Hello World".
+<li markdown="1"> 改用英文单词的package来生成文本，而不是字符串“Hello World”。
 
 <aside class="alert alert-success" markdown="1">
-<i class="fa fa-lightbulb-o"> </i> **Tip:**
-"Pascal case" (also known as "upper camel case"),
-means that each word in the string, including the first one,
-begins with an uppercase letter. So, "uppercamelcase" becomes
-"UpperCamelCase".
+<i class="fa fa-lightbulb-o"> </i> **小贴士:**
+“Pascal case”（也被称为“大骆驼拼写法”），意味着字符串中的每个单词（包括第一个单词）都以大写字母开头。所以，“uppercamelcase”变成“UpperCamelCase”。
 </aside>
 
-Make the following changes, as highlighted below:
+对代码进行以下更改，如高亮所示：
 
 <!-- skip -->
 {% prettify dart %}
@@ -307,39 +259,29 @@ class MyApp extends StatelessWidget {
 {% endprettify %}
 </li>
 
-<li markdown="1"> If the app is running, use the hot reload button
-    (<img src="images/hot-reload-button.png" alt="lightning bolt icon">)
-    to update the running app. Each time you click hot reload,
-    or save the project, you should see a different word pair,
-    chosen at random, in the running app.
-    This is because the word pairing is generated inside the build
-    method, which is run each time the MaterialApp requires rendering,
-    or when toggling the Platform in Flutter Inspector.
+<li markdown="1"> 如果app正在运行，请使用Flutter Hot Reload按钮
+    (<img src="images/hot-reload-button.png" alt="lightning bolt icon">)更新app。每次单击按钮或保存项目时，都会看到随机的单词配对文本，这是因为配对的词是在build方法内部生成的，每次app需要渲染时，或在Flutter Inspector中切换Platform时都会运行
 
 <center><img src="images/step2-screenshot.png" alt="screenshot at completion of second step"></center>
 </li>
 
 </ol>
 
-<p class="h2-like">Problems?</p>
+<p class="h2-like">有问题？</p>
 
-If your app isn't running correctly, look for typos. If needed,
-use the code at the following links to get back on track.
+如果你的应用程序运行不正常，请检查拼写错误。如有需要，可使用以下链接中的代码使项目回到正轨
 
 * [**pubspec.yaml**](https://gist.githubusercontent.com/Sfshaza/bb51e3b7df4ebbf3dfd02a4a38db2655/raw/57c25b976ec34d56591cb898a3df0b320e903b99/pubspec.yaml)
-(The **pubspec.yaml** file won't change again.)
+(**pubspec.yaml**文件不会再更改。)
 * [**lib/main.dart**](https://gist.githubusercontent.com/Sfshaza/bb51e3b7df4ebbf3dfd02a4a38db2655/raw/57c25b976ec34d56591cb898a3df0b320e903b99/main.dart)
 
 ---
 
-# Step 3: Add a Stateful widget
+# 第3步：添加有状态的控件
 
-State<em>less</em> widgets are immutable, meaning that their
-properties can’t change&mdash;all values are final.
+State<em>less</em>控件是不可改变的，这意味着它们的属性不能改变&mdash;&mdash;所有的值都是final的。
 
-State<em>ful</em> widgets maintain state that might change
-during the lifetime of the widget. Implementing a stateful
-widget requires at least two classes: 1) a StatefulWidget class
+State<em>ful</em>控件在其生命周期保持的状态可能会变化，实现一个有状态的控件至少需要两个类：: 1) a StatefulWidget class
 that creates an instance of 2) a State class. The StatefulWidget
 class is, itself, immutable, but the State class persists over the
 lifetime of the widget.
@@ -963,31 +905,27 @@ and hot reload makes experimenting with the UI quick and easy.
 
 <center><img src="images/step7-themes.png" alt="screenshot at completion of 7th step"></center>
 
-<p class="h2-like">Problems?</p>
+<p class="h2-like">有问题?</p>
 
-If you've gotten off track, use the code from the following link
-to see the code for the final app.
+如果你又不能正常运行了，请使用以下链接中的代码查看最终应用的代码。
 
 * [**lib/main.dart**](https://gist.githubusercontent.com/Sfshaza/c07c91a4061fce4b5eacaaf4d82e4993/raw/4001a72c0133b97c8e16bdeb3195ca03525696bd/main.dart)
 
 ---
 
-# Well done!
+# 干得漂亮！
 
-You've written an interactive Flutter app that runs on both iOS and Android.
-In this codelab, you've:
+您已经编写了一个可在iOS和Android上运行的交互式Flutter应用程序。在这个codelab中，你已经完成了：
 
-* Created a Flutter app from the ground up.
-* Written Dart code.
-* Leveraged an external, third party library.
-* Used hot reload for a faster development cycle.
-* Implemented a stateful widget, adding interactivity to your app.
-* Created a lazily loaded, infinite scrolling list displayed with a
-  ListView and ListTiles.
-* Created a route and added logic for moving between the home route
-  and the new route.
-* Learned about changing the look of your app's UI using Themes.
+* 从头开始创建一个Flutter app。
+* 编写Dart语言代码。
+* 使用外部的第三方库。
+* 使用hot reload加快开发。
+* 实现了一个有状态的控件，为你的应用增加可交互性。
+* 用ListView和ListTiles创建了一个延迟加载的无限滚动列表。
+* 创建了一个路由，并添加在主页面路由和新路由之间跳转的逻辑。
+* 学习如何使用主题更改应用程序的UI外观。
 
-<p class="h2-like">Next step</p>
+<p class="h2-like">下一步</p>
 
-[Next step: Learn More](/get-started/learn-more/)
+[下一步: 学习更多](/get-started/learn-more/)
