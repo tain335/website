@@ -43,8 +43,10 @@
 
 ## 注意事项
 1. 提交时，comment 的写法为 `transition + path ` 如：`transition website/index.md`
+
 2. 专有名词，类名，关键字与约定俗成的单词或词组无需翻译。如：`Material Design`, `Widget` 等
 
+3. 当中英数字混合的时候，中文和英文与数字间应添加空格，如 Flutter 在 Github 上目前有 15269 个 star 。
 
 约定高频词翻译对照表(按字母排序)：
 
@@ -72,10 +74,10 @@
 | word pair     |  词组        |
 | you    |   你(多数地方可将人称省略)      |
 
-
-
-
-
-
-
-
+## 本次翻译贡献者（排名不分先后）
+[_番茄沙司](https://github.com/ZhangQinglian)、
+[MelonRice](https://github.com/MelonRice)、
+[gdmec07120731](https://github.com/gdmec07120731) 、
+[debuggerx01](https://github.com/debuggerx01)、
+[goldhan](https://github.com/goldhan)、
+[MuffinYu](https://github.com/MuffinYu) 
