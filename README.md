@@ -56,7 +56,7 @@
 | framework         | 框架         |
 | function         | 函数         |
 | highlighted         | 高亮         |
-| hot reload         | 热更新         |
+| hot reload         | 热重载         |
 | icon     |    图标      |
 | import     |   导入       |
 | method     |   方法       |
