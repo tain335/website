@@ -1,6 +1,6 @@
 ---
 layout: page
-title: HTML/CSS Analogs in Flutter
+title: HTML/CSS 模式 
 permalink: /web-analogs/
 ---
 
@@ -13,7 +13,7 @@ permalink: /web-analogs/
 本页面是面向那些熟悉使用 HTML 和 CSS 编写应用UI组件的开发人员，这里介绍如何将 HTML/CSS 代码转换成等效的 Flutter/Dart 代码。
 
 这里的示例基于以下假设：
-* HTML 文档都以 HTML DOCTYPE 开头，所有元素的盒子都是 [border-box](https://css-tricks.com/box-sizing/) ，以便与 Flutter 模型保持一致。
+* HTML 文档都以 HTML DOCTYPE 开头，所有元素的盒子模型都是 [border-box](https://css-tricks.com/box-sizing/) ，以便与 Flutter 模型保持一致。
 {% prettify css %}<!DOCTYPE html>
 
    {
@@ -32,13 +32,13 @@ permalink: /web-analogs/
 
 ## 执行基本布局操作
 
-以下示例展示如何执行最常见的UI布局任务。
+以下示例展示如何执行最常见的UI布局。
 
 ### 文本样式和文本对齐
 
 CSS 可以处理的字体样式，字体大小和其他文本属性，还有颜色都在 [Text](https://docs.flutter.io/flutter/widgets/Text-class.html) 控件的子控件 [TextStyle](https://docs.flutter.io/flutter/painting/TextStyle-class.html) 中定义。
 
-在 HTML 和 Flutter 中，默认的子元素或控件都被固定在左上角。
+而在 HTML 和 Flutter 中，默认的子元素或控件都被固定在左上角的。
 
 <div class="lefthighlight">
 {% prettify css %}
@@ -73,7 +73,7 @@ CSS 可以处理的字体样式，字体大小和其他文本属性，还有颜�
 </div>
 
 ### 设置背景颜色
-在 Flutter 中，你可以在 [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) 中的 ```decoration``` 属性上设置背景颜色;
+在 Flutter 中，你可以在 [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) 中的 ```decoration``` 属性上设置背景颜色，如下：
 
 <div class="lefthighlight">
 {% prettify css %}
