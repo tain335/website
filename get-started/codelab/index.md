@@ -36,7 +36,7 @@ TODO: (maybe, but later)
 * Flutter应用程序的基本结构。
 * 查找和使用package来扩展功能。
 * 使用热加载加快开发效率。
-* 如何实现一个有状态的控件。
+* 如何实现一个有状态的widget。
 * 如何创建一个无限长度的延迟加载列表。
 * 如何创建并导航到第二个页面。
 * 如何使用主题更改应用程序的外观。
@@ -51,7 +51,7 @@ TODO: (maybe, but later)
 
 <ul markdown="1">
 <li markdown="1"> Flutter SDK<br>
-    Flutter SDK包括Flutter的引擎，框架，小部件，工具和Dart SDK。这个codelab需要v0.1.4或更高版本。
+    Flutter SDK包括Flutter的引擎，框架，控件，工具和Dart SDK。这个codelab需要v0.1.4或更高版本。
 </li>
 <li markdown="1"> Android Studio IDE<br>
     这个codelab基于the Android Studio IDE构建，但也可以使用其他IDE，或者从命令行运行。
@@ -121,17 +121,17 @@ class MyApp extends StatelessWidget {
 
   <ul markdown="1">
   <li markdown="1"> 本示例创建了一个Material app。
-      [Material](https://material.io/guidelines/)设计语言是一套移动设备和网页上的视觉设计标准。Flutter提供了一套丰富的Material控件。
+      [Material](https://material.io/guidelines/)设计语言是一套移动设备和网页上的视觉设计标准。Flutter提供了一套丰富的Material Widgets。
   </li>
   <li markdown="1"> main方法采用了 fat arrow (`=>`) 表示法，这是一种用于单行函数或方法的简写。
   </li>
-  <li markdown="1"> 该app继承了使它本身成为一个控件的StatelessWidget类。在Flutter中，大多数时候一切都可以看作控件, 包括alignment，padding和layout。
+  <li markdown="1"> 该app继承了使它本身成为一个widget的StatelessWidget类。在Flutter中，大多数时候一切都可以看作widget, 包括alignment，padding和layout。
   </li>
-  <li markdown="1"> Material库中的Scaffold 控件提供了默认的应用栏(app bar)，标题和构成主页面控件树结构的body属性。 控件的子树可以非常复杂。
+  <li markdown="1"> Material库中的Scaffold widget提供了默认的应用栏(app bar)，标题和构成主页面widget树结构的body属性。 widget的子树可以非常复杂。
   </li>
-  <li markdown="1"> 控件的主要工作是提供一个`build()`方法，描述如何根据其他更低层级的控件，来对这个控件进行展示。
+  <li markdown="1"> widget的主要工作是提供一个`build()`方法，描述如何根据其他更低层级的widget，来对这个widget进行展示。
   </li>
-  <li markdown="1"> 本示例的控件树由包含了Text子控件的Center控件组成。Center控件可将它的所有子控件树对齐到屏幕中心。
+  <li markdown="1"> 本示例的widget树由包含了Text child widget的Center widget组成。Center widget可将它的所有子树对齐到屏幕中心。
   </li>
 </ul>
 {% comment %}
@@ -277,16 +277,16 @@ class MyApp extends StatelessWidget {
 
 ---
 
-# 第3步：添加有状态的控件
+# 第3步：添加有状态的widget
 
-State<em>less</em>控件是不可改变的，这意味着它们的属性不能改变&mdash;&mdash;所有的值都是final的。
+State<em>less</em> widgets是不可改变的，这意味着它们的属性不能改变&mdash;&mdash;所有的值都是final的。
 
-State<em>ful</em>控件在其生命周期保持的状态可能会变化，实现一个有状态的控件至少需要两个类： 1)一个StatefulWidges类，这个类创建了一个 2)State类的实例。StatefulWidget类本身是不可变的，但State类可存在于控件的整个生命周期中。
+State<em>ful</em>widget在其生命周期保持的状态可能会变化，实现一个有状态的widget至少需要两个类： 1)一个StatefulWidges类，这个类创建了一个 2)State类的实例。StatefulWidget类本身是不可变的，但State类可存在于widget的整个生命周期中。
 
-在这一步，将添加一个有状态的控件RandomWords，它可以创建其State类RandomWordsState。State类会为控件保存被推荐和被收藏的词组。
+在这一步，将添加一个有状态的RandomWords widget，它可以创建其State类RandomWordsState。State类会为widget保存被推荐和被收藏的词组。
 
 <ol markdown="1">
-<li markdown="1"> 将有状态的RandomWords控件添加到main.dart。它可以在MyApp类之外的任何位置使用，但当前将把它放在文件底部。RandomWords控件除了创建State类之外几乎没有任何其他代码：
+<li markdown="1"> 将有状态的RandomWords widget添加到main.dart。它可以在MyApp类之外的任何位置使用，但当前将把它放在文件底部。RandomWords widget除了创建State类之外几乎没有任何其他代码：
 
 <!-- skip -->
 {% prettify dart %}
@@ -297,7 +297,7 @@ class RandomWords extends StatefulWidget {
 {% endprettify %}
 </li>
 
-<li markdown="1"> 添加RandomWordsState类。这个类保存了RandomWords控件的状态，该应用程序的大部分代码都放在该类中。这个类将保存随着用户的滑动操作而生成的无限增长的词组，以及保存用户收藏的词组，用户通过触发心形图标来添加或删除收藏的词组列表。
+<li markdown="1"> 添加RandomWordsState类。这个类保存了RandomWords widget的状态，该应用程序的大部分代码都放在该类中。这个类将保存随着用户的滑动操作而生成的无限增长的词组，以及保存用户收藏的词组，用户通过触发心形图标来添加或删除收藏的词组列表。
 
 你可以一点点建立这个类。首先，通过以下高亮代码，创建一个最简的类：
 
@@ -376,7 +376,7 @@ restarting.
 
 # 第4步：创建一个无限滚动的ListView
 
-在这一步，可以扩展RandomWordsState类，生成并展示词组列表。当用户滑动列表，ListView控件中显示的列表将无限增长。ListView的`builder` 工厂构造函数允许按需建立一个延迟加载的列表view。
+在这一步，可以扩展RandomWordsState类，生成并展示词组列表。当用户滑动列表，ListView widget中显示的列表将无限增长。ListView的`builder` 工厂构造函数允许按需建立一个延迟加载的列表view。
 
 <ol markdown="1">
 
@@ -542,7 +542,7 @@ class RandomWordsState extends State<RandomWords> {
 {% endprettify %}
 </li>
 
-<li markdown="1"> 在`_buildRow()`的ListTiles控件中，添加一个心形图标来使用收藏功能，随后将添加与心形图标进行交互的功能。
+<li markdown="1"> 在`_buildRow()`的ListTiles widget中，添加一个心形图标来使用收藏功能，随后将添加与心形图标进行交互的功能。
 
 添加以下高亮代码行：
 
@@ -627,7 +627,7 @@ class RandomWordsState extends State<RandomWords> {
 
 <aside class="alert alert-success" markdown="1">
 <i class="fa fa-lightbulb-o"> </i> **小贴士：**
-某些控件属性使用独立子控件(`child`)和其他属性例如 `action`组成一个子控件数组(`children`)，用方括号(`[]`)表示。
+某些widget属性使用独立widget(`child`)和其他属性例如 `action`组成一个子widget数组(`children`)，用方括号(`[]`)表示。
 </aside>
 
 将该图标及其相应的action操作添加到build方法中：
@@ -669,7 +669,7 @@ class RandomWordsState extends State<RandomWords> {
 
 <li markdown="1"> 当用户点击应用栏中的列表图标时，将建立一个新路由并push到Navigator的路由堆栈中，这个操作将改变界面显示，展示新的路由页面。
 
-新页面的内容使用匿名函数在 MaterialPageRoute控件的`builder`属性中创建。
+新页面的内容使用匿名函数在 MaterialPageRoute widget的`builder`属性中创建。
 
 将函数调用添加到Navigator.push中作为参数,如高亮代码所示，将路由push到Navigator的堆栈中。
 
@@ -682,7 +682,7 @@ class RandomWordsState extends State<RandomWords> {
 {% endprettify %}
 </li>
 
-<li markdown="1"> 添加MaterialPageRoute控件及其builder属性。先添加生成ListTile行控件的代码。其中ListTile的`divideTiles()`方法为每个ListTile控件之间添加水平间距。`divided`变量保存最终生成的所有行，并用`toList()`函数转换为列表。
+<li markdown="1"> 添加MaterialPageRoute widget及其builder属性。先添加生成ListTile  widget的代码。其中ListTile的`divideTiles()`方法为每个ListTile widget之间添加水平间距。`divided`变量保存最终生成的所有行，并用`toList()`函数转换为列表。
 
 <!-- skip -->
 {% prettify dart %}
@@ -713,7 +713,7 @@ class RandomWordsState extends State<RandomWords> {
 {% endprettify %}
 </li>
 
-<li markdown="1"> builder属性返回一个Scaffold控件，其中包含了应用栏标题名为“Saved Suggestions”的新路由页面。新页面的body属性由包含多个ListTile行控件的ListView组成。
+<li markdown="1"> builder属性返回一个Scaffold widget，其中包含了应用栏标题名为“Saved Suggestions”的新路由页面。新页面的body属性由包含多个ListTile widget的ListView组成。
 
 添加如下高亮代码：
 
@@ -817,7 +817,7 @@ class MyApp extends StatelessWidget {
 * 编写Dart语言代码。
 * 使用外部的第三方库。
 * 使用热更新加快开发。
-* 实现了一个有状态的控件，为你的应用增加可交互性。
+* 实现了一个有状态的widget，为你的应用增加可交互性。
 * 用ListView和ListTiles创建了一个延迟加载的无限滚动列表。
 * 创建了一个路由，并添加在主页面路由和新路由之间跳转的逻辑。
 * 学习如何使用主题更改应用程序的UI外观。
