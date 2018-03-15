@@ -1,79 +1,44 @@
 ---
 layout: page
-title: Flutter for Android Developers
+title: Android 开发者参考
 permalink: /flutter-for-android/
 ---
-This document is meant for Android developers looking to apply their
-existing Android knowledge to build mobile apps with Flutter. If you understand
-the fundamentals of the Android framework then you can use this document as a
-jump start to Flutter development.
+本文档适用于 Android 开发者，开发者们可以将现有的 Android 知识应用于 Flutter 构建移动应用程序。如果您了解 Android 框架的基础知识，那么您可以将此文档当做是 Flutter 开发的一个开始。
 
-Your Android knowledge and skill set are highly valuable when building with
-Flutter, because Flutter relies on the mobile operating system for numerous
-capabilities and configurations. Flutter is a new way to build UIs for mobile,
-but it has a plugin system to communicate with Android (and iOS) for non-UI
-tasks. If you're an expert with Android, you don't have to relearn everything
-to use Flutter.
+您现有的 Android 知识与技能对构建 Flutter 应用有非常高的价值。因为 Flutter 依靠操作系统提供了众多的功能和相关配置。Flutter 是一种为移动设备构建 UI 的新方法，除了 UI 构建外它还有一套插件系统用于与 Android 或 iOS 系统进行通信。如果您是 Android 方面的专家，那么您就不必学习 Flutter 的所有内容了。
 
-This document can be used as a cookbook by jumping around and finding questions
-that are most relevant to your needs.
+通过以下链接可以快速跳转到您想要了解的内容：
 
 * TOC Placeholder
 {:toc}
 
-# Views
+# 视图
 
-## What is the equivalent of a View in Flutter
+## Android 中的 View 在 Flutter 中对应什么？
 
-In Android, the View is the foundation of everything that shows up on the
-screen. From Buttons, Toolbars, and Inputs, everything is a View.  In Flutter
-the equivalent of a View is Widget. Widgets however, have a few differences
-when compared with a View. To start, widgets only last for a frame, and on
-every frame, Flutter's framework creates a tree of widget instances. In
-comparison, on Android when a View is drawn it does not redraw until invalidate
-is called.
+在 Android 中，View 是用于在屏幕上显示内容的基础。 如按钮，工具栏和输入框，这一切都是 View。在 Flutter 中对应 View 的是 Widget。然而与 View 相比，Widget 有一些不同之处。首先 Widget 实例仅存在于每一帧之间，并且在每一帧之间 Flutter 都会创建一课 Widget 树。相比之下，在 Android 上绘制 View 的时候，除非调用 `invalidate`方法，否则视图不会进行重绘。
 
-Unlike Android’s view hierarchy system where the framework mutate Views,
-Widgets in Flutter are immutable, this allows Widgets to be super lightweight.
+不同于 Android 中 View 是可变的，在Flutter 中的 Widget 是不可变的。这种特性使得 Flutter 中的 Widget 变得十分轻量级。
 
 
 
-## How do I update Widgets
+## 如何更新 Widget
 
-In Android you update your views by directly mutating them. However,
-in Flutter Widgets are immutable and are not updated directly, instead
-you have to work with the Widget's state.
+在 Android 中可以直接通过 View 来更新它们的状态。但是在 Flutter 中 Widget 是不可变的，所以不能直接通过 Widget 进行更新，如果需要更新 Widget 必须通过 `State`。
 
-This is where the concept of Stateful vs Stateless widgets comes from. A
-StatelessWidget is just what it sounds like, a widget with no state
-information.
+所以这里就引出了 `StatefulWidget` 和 `StatelessWidget`。从字面理解，StatelessWidget 是没有内部状态的即不可变。而 StatefulWidget 具有状态，即是可刷新的。
 
-StatelessWidgets are useful when the part of the user interface
-you are describing does not depend on anything other than the configuration
-information in the object.
+当您构建的 UI 元素中有些部分是不变的，那么使用 StatelessWidget 是一个不错的选择。
 
-For example, in Android, this would be similar to just placing an ImageView
-with your logo. The logo is not going to change during runtime and because
-of that you would use a StatelessWidget in Flutter.
+例如在 Android 中您通常会将 App 的 logo 通过 ImageView 显示。而 logo 一般不会变，因此对应 Flutter 中您就可以使用 StatelessWidget 来显示您的 logo。
 
-If you want to dynamically change the UI based on data received
-after making an HTTP call or user interaction then you have to work
-with StatefulWidget and tell the Flutter framework that the widget’s State
-has been updated so it can update that widget.
+如果您想通过 HTTP 请求后获得的数据或用户交互来刷新 UI 视图，您需要使用 StatefulWidget 然后主动告诉 Flutter 底层 Widget 的状态发生了变化，只有如此 Flutter 才会刷新对应的 Widget。
 
-The important thing to note here is at the core both Stateless and Stateful
-widgets behave the same. They rebuild every frame, the difference is the
-StatefulWidget has a State object which stores state data across frames and
-restores it.
+这里有重要的一点需要注意，StatelessWidget 和 StatefulWidget 的核心内容是一致的，它们都会在每一帧中被重构，不同之处在于 StatefulWidget 有一个 State 对象，它可以为 StatefulWidget 在不同帧之间存储数据。
 
-If you are in doubt, then always remember this rule: If a widget changes (the
-user interacts with it, for example) it’s stateful. However, if a child 
-is reacting to change, the containing parent can still be a Stateless widget
-if the parent doesn't react to change.
+如果您还是有疑惑的话，只要记住如果一个 Widget 会变化，那么它就是有状态的。但是如果一个子 Widget 是有状态的，但是其父 Widget 是不可变的话也父 Widget 可以是 StatelessWidget 。
 
-Let's take a look at how you would use a StatelessWidget. A common
-StatelessWidget is a Text widget. If you look at the implementation of the Text
-Widget you'll find it subclasses a StatelessWidget
+接下来看一下如何使用 StatelessWidget。Text 是一个常见的 StatelessWidget。如果您查看其源码的话，会发现 Text 是 StatelessWidget 的一个子类
 
 <!-- skip -->
 {% prettify dart %}
@@ -83,16 +48,13 @@ new Text(
 );
 {% endprettify %}
 
-As you can see, the Text Widget has no state information associated with it, it
-renders what is passed in it's constructors and nothing more.
+如你所见，Text 没有任何状态信息，它仅仅是用于显示构造函数传递给它的信息。
 
-But, what if you want to make "I Like Flutter" change dynamically, for
-example from clicking a FloatingActionButton?
+但是如果想要通过点击一个按钮来改变 ‘I like Flutter!’ ，那该如何实现？
 
-This can be achieved by wrapping the Text widget in a StatefulWidget and
-updating it when the button is clicked.
+答案是可以使用 StatefulWidget 包裹 Text，并通过点击按钮来刷新 Text 的内容。
 
-For example:
+代码如下:
 
 <!-- skip -->
 {% prettify dart %}
@@ -152,13 +114,11 @@ class _SampleAppPageState extends State<SampleAppPage> {
 {% endprettify %}
 
 
-## How do I layout my Widgets? Where is my XML layout file
+## 如果使用 Widget 进行布局呢？XML 布局文件在哪里？
 
-In Android, you write layouts via XML, but in Flutter you write your layouts
-with a widget tree.
+在 Android 中通常使用 XML 来进行 UI 的布局，但在 Flutter 中 UI 的布局是通过在 dart 文件中构建 Widget 树来实现的。
 
-Here is an example of how you would display a simple Widget on the screen and
-add some padding to it.
+下面是一个简单的例子用于在屏幕上居中显示一个按钮。
 
 <!-- skip -->
 {% prettify dart %}
@@ -179,18 +139,14 @@ add some padding to it.
   }
 {% endprettify %}
 
-You can view all the layouts that Flutter has to offer here:
-[https://flutter.io/widgets/layout/](https://flutter.io/widgets/layout/)
+您可以在此处查看 Flutter 提供的所有布局:
+[http://doc.flutter-dev.cn/widgets/layout/](http://doc.flutter-dev.cn/widgets/layout/)
 
-## How do I add or remove a component from my layout
+## 如何在布局中添加或移除组件
 
-In Android, you would call addChild or removeChild from a parent to dynamically
-add or remove views from a parent. In Flutter, because widgets are immutable
-there is no addChild. Instead, you can pass in a function that returns a widget
-to the parent and control that child's creation via a boolean.
+在 Android 中，您可以通过调用父布局的 addChild 或者 removeChild 来添加或移除视图，但在 Flutter 中 Widget 是不可变的，所以没有 addChild 或 removeChild 方法。相反，您可以传入一个函数，该函数返回一个 子 Widget 给父 Widget。并在该函数中通过一个 bool 值来控制子 Widget 的创建。
 
-For example here is how you can toggle between two widgets when you click on a
-FloatingActionButton:
+下面的例子展示了如果通过点按一个按钮来切换不同的子 Widget:
 
 <!-- skip -->
 {% prettify dart %}
