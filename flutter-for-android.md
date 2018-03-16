@@ -3,11 +3,11 @@ layout: page
 title: Android 开发者参考
 permalink: /flutter-for-android/
 ---
-本文档适用于 Android 开发者，开发者们可以将现有的 Android 知识应用于 Flutter 构建移动应用程序。如果您了解 Android 框架的基础知识，那么您可以将此文档当做是 Flutter 开发的一个开始。
+本文档适用于 Android 开发者，开发者们可以将现有的 Android 知识应用于 Flutter 构建移动应用程序。如果你了解 Android 框架的基础知识，那么你可以将此文档当做是 Flutter 开发的一个开始。
 
-您现有的 Android 知识与技能对构建 Flutter 应用有非常高的价值。因为 Flutter 依靠操作系统提供了众多的功能和相关配置。Flutter 是一种为移动设备构建 UI 的新方法，除了 UI 构建外它还有一套插件系统用于与 Android 或 iOS 系统进行通信。如果您是 Android 方面的专家，那么您就不必学习 Flutter 的所有内容了。
+你现有的 Android 知识与技能对构建 Flutter 应用有非常高的价值。因为 Flutter 依靠操作系统提供了众多的功能和相关配置。Flutter 是一种为移动设备构建 UI 的新方法，除了 UI 构建外它还有一套插件系统用于与 Android 或 iOS 系统进行通信。如果你是 Android 方面的专家，那么你就不必学习 Flutter 的所有内容了。
 
-通过以下链接可以快速跳转到您想要了解的内容：
+通过以下链接可以快速跳转到你想要了解的内容：
 
 * TOC Placeholder
 {:toc}
@@ -28,17 +28,17 @@ permalink: /flutter-for-android/
 
 所以这里就引出了 `StatefulWidget` 和 `StatelessWidget`。从字面理解，StatelessWidget 是没有内部状态的即不可变。而 StatefulWidget 具有状态，即是可刷新的。
 
-当您构建的 UI 元素中有些部分是不变的，那么使用 StatelessWidget 是一个不错的选择。
+当你构建的 UI 元素中有些部分是不变的，那么使用 StatelessWidget 是一个不错的选择。
 
-例如在 Android 中您通常会将 App 的 logo 通过 ImageView 显示。而 logo 一般不会变，因此对应 Flutter 中您就可以使用 StatelessWidget 来显示您的 logo。
+例如在 Android 中你通常会将 App 的 logo 通过 ImageView 显示。而 logo 一般不会变，因此对应 Flutter 中你就可以使用 StatelessWidget 来显示你的 logo。
 
-如果您想通过 HTTP 请求后获得的数据或用户交互来刷新 UI 视图，您需要使用 StatefulWidget 然后主动告诉 Flutter 底层 Widget 的状态发生了变化，只有如此 Flutter 才会刷新对应的 Widget。
+如果你想通过 HTTP 请求后获得的数据或用户交互来刷新 UI 视图，你需要使用 StatefulWidget 然后主动告诉 Flutter 底层 Widget 的状态发生了变化，只有如此 Flutter 才会刷新对应的 Widget。
 
 这里有重要的一点需要注意，StatelessWidget 和 StatefulWidget 的核心内容是一致的，它们都会在每一帧中被重构，不同之处在于 StatefulWidget 有一个 State 对象，它可以为 StatefulWidget 在不同帧之间存储数据。
 
-如果您还是有疑惑的话，只要记住如果一个 Widget 会变化，那么它就是有状态的。但是如果一个子 Widget 是有状态的，但是其父 Widget 是不可变的话也父 Widget 可以是 StatelessWidget 。
+如果你还是有疑惑的话，只要记住如果一个 Widget 会变化，那么它就是有状态的。但是如果一个子 Widget 是有状态的，但是其父 Widget 是不可变的话也父 Widget 可以是 StatelessWidget 。
 
-接下来看一下如何使用 StatelessWidget。Text 是一个常见的 StatelessWidget。如果您查看其源码的话，会发现 Text 是 StatelessWidget 的一个子类
+接下来看一下如何使用 StatelessWidget。Text 是一个常见的 StatelessWidget。如果你查看其源码的话，会发现 Text 是 StatelessWidget 的一个子类
 
 <!-- skip -->
 {% prettify dart %}
@@ -139,12 +139,12 @@ class _SampleAppPageState extends State<SampleAppPage> {
   }
 {% endprettify %}
 
-您可以在此处查看 Flutter 提供的所有布局:
+你可以在此处查看 Flutter 提供的所有布局:
 [http://doc.flutter-dev.cn/widgets/layout/](http://doc.flutter-dev.cn/widgets/layout/)
 
 ## 如何在布局中添加或移除组件
 
-在 Android 中，您可以通过调用父布局的 addChild 或者 removeChild 来添加或移除视图，但在 Flutter 中 Widget 是不可变的，所以没有 addChild 或 removeChild 方法。相反，您可以传入一个函数，该函数返回一个 子 Widget 给父 Widget。并在该函数中通过一个 bool 值来控制子 Widget 的创建。
+在 Android 中，你可以通过调用父布局的 addChild 或者 removeChild 来添加或移除视图，但在 Flutter 中 Widget 是不可变的，所以没有 addChild 或 removeChild 方法。相反，你可以传入一个函数，该函数返回一个 子 Widget 给父 Widget。并在该函数中通过一个 bool 值来控制子 Widget 的创建。
 
 下面的例子展示了如果通过点按一个按钮来切换不同的子 Widget:
 
@@ -214,20 +214,15 @@ class _SampleAppPageState extends State<SampleAppPage> {
 {% endprettify %}
 
 
-## In Android, I can Animate a view by View.animate(), how can I do that to a Widget
+## 在 Android 中可以使用 `View.animate()` 来让 View 产生动画，在 Flutter 中如何让 Widget 产生动画呢？
 
-In Flutter, animating widgets can be done via the animation library.
+在 Flutter 中可以使用 `animation` 库是 Widget 产生动画效果。
 
-In Android you would either create animations via XML or call the .animate()
-property on Views, in Flutter you can wrap widgets inside an Animation.
+在 Andorid 中，可以通过 XML 来创建动画，同样也可以在 View 上调用 animate() 方法产生动画。而在 Flutter 中则需要将 Widget 作为 AnimationWidget 的子节点产生动画。
 
-Like Android, in Flutter you have an AnimationController and a
-Interpolator which is an extension of the Animation class, for example a
-CurvedAnimation. You pass the controller and Animation into an AnimationWidget
-and tell the controller to start the animation.
+同 Android 中类似，在 Flutter 中有 AnimationController 和 Interpolater，它们都扩展了 Animation 类。接着将 AnimationController 和 Animation 传递给 AnimationWidget，并通过 AnimationController 来启动动画。
 
-Let's take a look at how to write a FadeTransition that will Fade in a logo
-when you press
+下面这个例子展示了如何编写一个带淡入淡出动画：
 
 <!-- skip -->
 {% prettify dart %}
@@ -294,19 +289,17 @@ class _MyFadeTest extends State<MyFadeTest> with TickerProviderStateMixin {
 {% endprettify %}
 
 
-See [https://flutter.io/widgets/animation/](https://flutter.io/widgets/animation/) and [https://flutter.io/tutorials/animation](https://flutter.io/tutorials/animation) for more specific details.
+查阅 [http://doc.flutter-dev.cn/widgets/animation/](http://doc.flutter-dev.cn/widgets/animation/) 和 [http://doc.flutter-dev.cn/tutorials/animation](http://doc.flutter-dev.cn/tutorials/animation) 了解更多关于动画的细节。
 
-## How do I use a Canvas to draw/paint
+## 如何使用 Canvas 进行绘制
 
-In Android, you would use the Canvas to draw custom shapes to the screen.
+在 Android 中可以使用 Canvas 进行自定义的绘制。
 
-Flutter has two classes that will help you draw to the canvas, the CustomPaint
-and CustomPainter which implements your algorithm to draw to canvas.
+Flutter 中的 CustomPaint 和 CustomPainter 这两个类可以帮助你在 Canvas 上进行绘制。
 
-In this popular StackOverFlow answer you can see how
-a signature painter is implemented.
+查看下面链接，可以了解到如何使用上面提到的两个类自定义一个签名功能：
 
-See [https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter](https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter)
+ [https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter](https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter)
 
 <!-- skip -->
 {% prettify dart %}
@@ -353,17 +346,13 @@ void main() => runApp(new MaterialApp(home: new DemoApp()));
 {% endprettify %}
 
 
-## How do I build custom Widgets
+## 如何构建自定义 Widget
 
-In Android, you would typically subclass from a View or a pre-existing
-Widget to override and implement methods.
+在 Android 中通常通过继承 View 或其子类来构建自定义的 View。
 
-In Flutter building a custom widget is often accomplished by not extending but
-composing smaller widgets.
+在 Flutter 中构建自定义的 Widget 通常采用的是组合其他 Widget 的方式而非传统的继承。
 
-Let's take a look at how to build a CustomButton that takes in the label in the
-constructor. This is achieved by composing it with a RaisedButton, rather than
-extending the RaisedButton and overriding and implementing new methods:
+下面看一下如何构建一个自定义的按钮，它将构造方法传入的文字作为自己按钮的文字进行显示。这里可以看到我们是通过将其两者进行组合来实现，而非继承 RaiseButton 来实现。
 
 <!-- skip -->
 {% prettify dart %}
@@ -378,7 +367,7 @@ class CustomButton extends StatelessWidget {
 }
 {% endprettify %}
 
-Then you can use this CustomButton just like you would with any other Widget:
+接下来你就可以像使用其他 Widget 一样来使用 CustomButton 了：
 
 <!-- skip -->
 {% prettify dart %}
@@ -393,24 +382,13 @@ Then you can use this CustomButton just like you would with any other Widget:
 
 # Intents
 
-## What is the equivalent of an Intent in Flutter
+## Android 中的 Intent 在 Flutter 中对应什么
 
-In Android, there are two main use cases for Intents: switching between
-Activities, and invoking external components. Flutter on the other hand does
-not have the concept of Intents, though if needed Flutter can trigger Intents
-through native integration.
+在 Android 中 Intent 主要有两种用途：在 Activity 之间切换和调用外部组件。Flutter 中没有 Intent 的概念，但如果需要的话 Flutter 可以通过插件的方式触发 Intent。
 
-To switch between screens in Flutter you can access the router to draw
-a new Widget.  There are two core concepts and classes for managing many
-screens: Route and Navigator. A Route is an abstraction for a “screen” or
-“page” of an app (think Activity), and a Navigator is a widget that manages
-routes. A Navigator can push and pop routes to help a user move from screen to
-screen.
+在 Flutter 切换界面可以通过 Route 来实现。另外值得注意的是在管理 Flutter 中的多个界面的时候有两个重要的概念：Route 和 Navigator。一个 Route 就代表了一个界面（类似与 Activity），而 Navigator 则是一个管理 Route 的 Widget。Navigator 可以通过 pop 和 push 的方法在界面之间进行切换。
 
-Like Android where you can declare your Activities inside the
-AndroidManifest.xml, in Flutter you can pass in a Map of named routes to the
-top level MaterialApp instance
-
+类似 Android 中，可以在 AndroidManifest 中定义 Activity，在 Flutter 中可以将指定 Route 的映射集合添加到 MaterialApp 的根目录。
 <!-- skip -->
 {% prettify dart %}
  void main() {
@@ -424,35 +402,28 @@ top level MaterialApp instance
   ));
 }
 {% endprettify %}
-Then you can change to this route by getting an hold of the Navigator and
-calling this named route.
+接着你就可以通过如下方式来操作 Route。
 
 <!-- skip -->
 {% prettify dart %}
 Navigator.of(context).pushNamed('/b');
 {% endprettify %}
 
-The other popular use-case for Intents is to call external components such as a
-Camera or File picker. For this, you would need to create a native platform
-integration (or use an existing library)
+Intent 另外比较实用的作用是调用外部组件，如 Camera 或文件选择器，如果要在 Flutter 中实现类似功能，你需要在平台代码中集成或实用现有的库。
 
-See [Flutter Plugins] to learn how to build a native platform integration.
+查看[开发扩展包](http://doc.flutter-dev.cn/developing-packages/) 章节查看如何集成平台本地功能。
 
 
 
-## How do I handle incoming Intents from external applications in Flutter
+## 在 Flutter 中如何处理来自外部的 Intent
 
-Flutter can handle incoming intents from Android by directly talking to the
-Android layer and requesting the data that was shared.
+Flutter 可以和 Android 层进行交互来共享传入的 Intent。
 
-In this example we are registering a text share intent, so other apps
-can share text to our Flutter app.
+在下面的例子中，我们在 AndroidManifest 中注册了发送文本的 Intent 过滤，然后 App 的 Android 层就可以与 Flutter 层共享传入的文本。
 
-The basic flow of this application would be we first handle the shared text
-data on Android's side, and then wait till Flutter requests for the data to
-send it via a MethodChannel.
+下面例子的基本流程是首先我们处理 Android 层 Intent 传入的数据，然后当 Flutter 层发送请求时将文本通过 MethodChannel 传递给 Flutter 层。
 
-First we register the intent we want to handle in AndroidManifest.xml
+首先在 AndroidManifest 中注册感兴趣的 Intent。
 
 <!-- skip -->
 {% prettify xml %}
@@ -482,10 +453,7 @@ First we register the intent we want to handle in AndroidManifest.xml
         </activity>
 {% endprettify %}
 
-Then in MainActivity you can handle the intent, once we get the shared text
-data from the intent, we hold onto it till Flutter requests for it when it's
-all ready to go.
-
+接着在 MainActivity 中处理接收到的文本信息并保存下来，当 Flutter 层请求文本信息时将其传递给 Flutter 层即可。
 <!-- skip -->
 {% prettify java %}
 package com.yourcompany.shared;
@@ -536,8 +504,7 @@ public class MainActivity extends FlutterActivity {
 }
 {% endprettify %}
 
-Lastly, in Flutter you can request the data when the the Flutter view is
-rendered.
+最后在 Flutter 层，可以选择在 `initState` 中对文本进行请求。
 
 <!-- skip -->
 {% prettify dart %}
@@ -597,37 +564,29 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
 
 
-## What is the equivalent of startActivityForResult
+## startActivityForResult 在 Flutter 中如何实现
 
-The Navigator class which handles all Routing in Flutter can be used to get a
-result back from a route that you have pushed on the stack. This can be done by
-await'ing on the Future returned by push. For example if you were to start a
-location route which let the user select their location, you could do:
+可以通过 Navigator 的 push 方法返回的 Futrue 来获得页面的返回数据。例如你想启动一个位置选择的界面，然后从中获得用户选择的结果，可以使用如下方法：
 
 <!-- skip -->
 {% prettify dart %}
 Map coordinates = await Navigator.of(context).pushNamed('/location');
 {% endprettify %}
 
-then inside your location route once the user has selected their location you
-can "pop" the stack with the result
+接着在文职选择界面，当用户选择完位置以后，可以调用如下方法把结果传递给上面的 coordinates。
 
 <!-- skip -->
 {% prettify dart %}
 Navigator.of(context).pop({"lat":43.821757,"long":-79.226392});
 {% endprettify %}
 
-# Async UI
+# UI 中的异步
 
-## What is the equivalent of runOnUiThread in Flutter
+##  runOnUiThread 在 Flutter 中对应什么方法
 
-Dart is a single-threaded execution model, with support for Isolates
-(a way to run Dart code on another thread), an event loop,
-and asynchronous programming. Unless you spawn an Isolate,
-your Dart code runs in the main UI thread and is driven by an event loop.
+Dart 是单线程执行模型、支持 Isolate（一种多线程模型）、事件循环和异步编程的。除非使用 Isolate，不然你的 Dart 代码都是在 UI 线程中进行并由事件循环进行驱动。
 
-For example, you can run network code on the UI thread without causing the UI
-to hang:
+例如你可以在 UI 线程执行网络请求而不会导致 UI 线程的阻塞：
 
 <!-- skip -->
 {% prettify dart %}
@@ -640,11 +599,9 @@ loadData() async {
 }
 {% endprettify %}
 
-To update the UI you would call setState which would trigger the build method
-to run again and update the data.
+通过调用 setState 方法触发界面的重新构建来刷新并更新数据。
 
-Here is the full example of loading data asynchronously and displaying it in a
-ListView:
+下面是一个完整的获得网络数据并在 ListView 上进行更新的例子：
 
 <!-- skip -->
 {% prettify dart %}
@@ -719,19 +676,13 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
 
 
-## What is the equivalent of an AsyncTask or IntentService on Android
+## Android 中的 AsyncTask 或 IntentService 在 Flutter 对应什么
 
-In Android, when you want to access a network resource you would
-typically spawn an AsyncTask that would run code outside of the UI thread
-to prevent your UI from blocking. The AsyncTask has a thread pool that manages
-the threads for you.
+在 Android 中当你想要进行网络操作时通常会使用 AsyncTask，以避免主线程遭到阻塞。另外 AsyncTask 有一个线程池专门为你管理线程。
 
-Since Flutter is single threaded and runs an event loop (like Node.js), you
-don't have to worry about thread management or spawing AsyncTasks or IntentServices.
+由于 Flutter 是单线程并由事件驱动（类似 Node.js），因此你不必为线程管理或需要类似的 AsyncTask 和 IntentService 而感到担心。
 
-To run code asynchronously you can declare the function as an async function
-and await on long running tasks in the function
-
+需要异步执行的时候只需要将方法声明为异步方法并在方法中使用 await 来等待即可。
 <!-- skip -->
 {% prettify dart %}
 loadData() async {
@@ -743,26 +694,17 @@ loadData() async {
 }
 {% endprettify %}
 
-This is how you would typically do network or database calls.
+以上就是你通常进行网络或数据库操作的方式。
 
-On Android, when you extend AsyncTask, you typically override 3 methods,
-OnPreExecute, doInBackground and onPostExecute. There is no equivalent to this
-pattern in Flutter since you would just await on a long running function and
-Dart's event loop will take care of the rest.
+在 Android 中，当你继承一个 AsyncTask 的时候，通常要重载它的 3 个方法，OnPreExecute, doInBackground 和 onPostExecute。而在 Flutter 中没有这种麻烦事，你要做的仅仅是 await 一个长时间的操作，剩下的事 Dart 的事件循环机制会帮你搞定。
 
-However, there are times where you may be processing a large amount of data and
-your UI could hang.
+但是，有时你可能会处理一些数据量较大叫密集的操作，Flutter 的 UI 还是可能会受到影响。
 
-In this case, like AsyncTask, in Flutter it is possible to take advantage of
-multiple CPU cores to do long running or computationally intensive tasks. This
-is done by using Isolates.
+在这种情况下，还是有何 AsyncTask 类似的解决方案的。在 Flutter 中可以利用 CPU 多核的性质来并行处理事务，而这一工作则是又 Isolate 完成。
 
-Isolates are a separate execution thread that runs and do not share any memory
-with the main execution memory heap. This means you can’t access variables from
-the main thread or update your UI by calling setState.
+Isolate 是独立的执行线程，和主线程不共享任何内存。这意味着你不能在 Isolate 中给主线程的变量赋值或者调用 setState 方法来更新 UI。
 
-Let's see an example of a simple Isolate and how you can communicate and share
-data back to the main thread to update your UI.
+让我们看一个 Isolate 的简单例子，学习下如何与主线程交流并共享数据来更新 UI：
 
 <!-- skip -->
 {% prettify dart %}
@@ -806,11 +748,9 @@ data back to the main thread to update your UI.
   }
 {% endprettify %}
 
-"dataLoader" is the Isolate that runs in its own seperate execution thread,
-where you can do more CPU intensive processing, for example parsing a lot of
-JSON - 10k+ lines, or doing computationally intensive math.
+`dataLoader` 方法在它独立的 Isolate 中运行，你可以在其中执行更多的 CPU 密集型处理，例如解析一万行以上的 JSON 的数据或执行密集型数学计算。
 
-A full example that you can run is below.
+你可以参考下面完整的例子：
 
 <!-- skip -->
 {% prettify dart %}
@@ -937,17 +877,15 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
 {% endprettify %}
 
-## What is the equivalent of OkHttp on Flutter
+## Android 中的 OkHttp 在 Flutter 中对应什么
 
-Making a network call in Flutter is easy when you use the popular "http" package.
+在 Flutter 中使用 `http` 扩展库将使得网络通信变得异常简单。
 
-While the http package does not have all the features OkHttp has implemented,
-the "http" package abstracts away a lot of the networking that you would normally
-implement yourself, making it a simple way to make network calls.
+虽然 `http` 扩展库没有实现 OkHttp 的所有功能，但其抽象出了很多常用的功能，使得原本你要自己实现的网络调用变成一些极为简单的方法。
 
 [https://pub.dartlang.org/packages/http](https://pub.dartlang.org/packages/http)
 
-You can use it by adding it to your dependencies in pubspec.yaml
+你可以在 pubspec.yaml 添加 http 包的依赖来使用它：
 
 <!-- skip -->
 {% prettify yaml %}
@@ -956,7 +894,7 @@ dependencies:
   http: '>=0.11.3+12'
 {% endprettify %}
 
-Then to make a network call, for example to this JSON GIST on GitHub you can call:
+接着就可以进行网络请求了，如下：
 
 <!-- skip -->
 {% prettify dart %}
@@ -975,21 +913,15 @@ import 'package:http/http.dart' as http;
 }
 {% endprettify %}
 
-Once you have the result you can tell Flutter to update its state by calling
-setState, which will update your UI with the result from your network call.
+一旦你得到了你需要的数据，就可以通过调用 setState 方法通知 Flutter 将网络调用的结果更新到 UI 上。
 
-## How do I show progress indicator in Flutter when there is a task that is running
+## 在 Flutter 中，当有任务在执行时，如何显示进度
 
-In Android you would typically show a progress indicator when you execute
-a long running task.
+在 Android 中，当你执行长时间的任务是，会在界面上显示一个进度指示器表明当前有任务在执行。
 
-In Flutter this can be done by rendering a Progress Indicator widget. You can
-show the Progress Indicator programmatically by controlling when its rendered
-through a boolean and telling Flutter to update it's state before your long running task.
+在 Flutter 中这可以通过进度指示器 Widget 来实现。你可以通过一个 boolean 值来告诉 Flutter 是否需要显示进度指示器。
 
-In the example below, we break up the build function into three different
-functions. If showLoadingDialog is true (when widgets.length == 0) then we
-render the ProgressIndicator, else we render the ListView with all the data.
+在下面这个例子中，我们将 build 方法分解为三个不同的方法。如果 showLoadingDialog 为 true 时显示进度指示器，否则将显示带有数据的 ListView：
 
 <!-- skip -->
 {% prettify dart %}
@@ -1080,21 +1012,19 @@ class _SampleAppPageState extends State<SampleAppPage> {
 }
 {% endprettify %}
 
-# Project Structure & Resources
+# 项目结构与资源
 
-## Where do I store my resolution dependent image files? HDPI/XXHDPI
+## 分辨率相关的图像资源应存储在哪里？（HDPI/XXHDPI）
 
-Flutter follows a simple 3 resolution format like iOS. 1x, 2x, and 3x.
+Flutter 遵循像 iOS 这样简单的3种分辨率格式。 1x，2x 和 3x。
 
-Create a folder called images and for each of your image files, generate a @2x
-and @3x variant and place them in the folder like such
+你可以创建一个名为 images 的文件夹，并为每个图像文件生成一个 @2x 和 @3x 的图像文件，并将它们放在对应文件夹中，像这样
 
 - …/my_icon.png
-
 - …/2.0x/my_icon.png
 - …/3.0x/my_icon.png
 
-Then you would need to declare these images in your pubspec.yaml file
+接着在 pubspec.yaml 中声明这些图像资源。
 
 <!-- skip -->
 {% prettify yaml %}
@@ -1103,16 +1033,16 @@ assets:
  - images/a_dot_ham.jpeg
      {% endprettify %}
 
-You can then access your images using AssetImage
+然后你就可以使用 AssetImage 来获得这些图形资源。
 
 <!-- skip -->
 {% prettify dart %}
 return new AssetImage("images/a_dot_burr.jpeg");
 {% endprettify %}
 
-## Where do I store strings? How do I store different locales
+## 字符串如何存储，如何存储不同语言的字符串
 
-At the moment, best practice is to create a class called Strings, for example
+目前最佳方案就是创建一个 Strings 的类，并将字符创以静态字段的形式存储在其中：
 
 <!-- skip -->
 {% prettify dart %}
@@ -1121,60 +1051,44 @@ class Strings{
 }
 {% endprettify %}
 
-Then in your code, you can access your Strings as such
+接着你可以向如下中方式进行访问：
 
 <!-- skip -->
 {% prettify dart %}
  new Text(Strings.welcomeMessage)
 {% endprettify %}
 
-Flutter has basic support for accessibility on Android, though this feature is
-a work in progress.
+Flutter 对 Android 资源的可访问性提供了基本的支持，但目前这个功能还在进行中。
 
-Flutter developers are encouraged to use the [intl
-package](https://pub.dartlang.org/packages/intl) for internationalization and
-localization.
+Flutter 鼓励开发者使用 [intl
+package](https://pub.dartlang.org/packages/intl) 来进行国际化和本地化。
 
-## What is the equivalent of a Gradle file to add my external dependencies
+## Android 中的 Gradle 文件在 Flutter 中对应什么
 
-In Android, you add dependencies by adding to your Gradle file located in your
-Android project.
+在 Android 中，你可以通过位于 Android 项目中的 Gradle 文件来添加依赖项。
 
-In Flutter while there are Gradle files under the Android folder in your
-Flutter project, you would only use these if you are adding dependencies needed
-for platform integration. Otherwise, you can use pubspec.yaml to declare
-external dependencies specific to Flutter.
+在 Flutte 中，虽然在 Flutter 项目的 Android 文件夹下有 Gradle 文件，但只有在添加平台集成所需的依赖时，才能使用这些文件。否则，你可以使用 pubspec.yaml 声明特定于 Flutter 的外部依赖项。 
 
-A good place to find great packages for flutter is [Pub](https://pub.dartlang.org/flutter/packages/)
+在 [Pub](https://pub.dartlang.org/flutter/packages/) 中可以找到很多使用的依赖库。
 
-# Activities and Fragments
+# Activities 和 Fragments
 
-## What are the equivalent of activities and fragments
+## Android 中的 Activity 和 Fragment 在 Flutter 中对应什么
 
-In Android, an Activity represents a single focused thing the user can do. A
-Fragment represents a way to modularize your code, build more
-sophisticated user interfaces for larger screens, and help scale your
-application between small and large screens. In Flutter both of these concepts
-fall under the concept of a Widget.
+在 Android 中 Activity 代表用户可完成一项特定功能或任务的界面。Fragment 代表了一种模块化 UI 代码的方式，为更大的屏幕构建更复杂的用户界面，并帮助在小屏幕和大屏幕之间扩展你的应用程序。在 Flutter 中这两者都属于 Widget 的概念。
 
-## How do I listen to Android Activity lifecycle events
+## 如何监听 Android Activity 的生命周期
 
-In Android you can override methods from the Activity to capture lifecycle
-methods for the Activity.
+在 Android 中可以通过重载方法来监听 Activity 的生命周期。
 
-In Flutter You can listen to lifecycle events by hooking into the WidgetsBinding
-observer and listening to the didChangeAppLifecycleState change event.
+在 Flutter 中你可以通过注册到 WidgetsBinding 的观察者并监听 didChangeAppLifecycleState 更改事件来监听 Activity 的生命周期事件。
 
-The lifecycle events you can observe are
+以下是你可以监听到的生命周期事件：
 
-- resumed - The application is visible and responding to user input. This is
-  onResume from Android
-- inactive - The application is in an inactive state and is not receiving user
-  input. This event is unused on Android and only works with iOS.
-- paused - The application is not currently visible to the user, not responding
-  to user input, and running in the background. This is onPause from Android
-- suspending - The application will be suspended momentarily. This is unused on
-  iOS
+- resumed - 应用程序可见并可以和用户进行交互，等价于 Android 中的 OnResume 。
+- inactive - 应用程序处于非活动状态，并且无法与用户交互。此事件仅适用于 iOS 设备。
+- paused - 应用程序当前对用户不可见，无法与用户交互，并且在后台运行。等价于 Android 中的 OnPause。
+- suspending - 应用程序将暂时中止。这在iOS上未使用。
 
 
 
@@ -1223,19 +1137,13 @@ void main() {
 }
 {% endprettify %}
 
-# Layouts
+# 布局
 
-## What is the equivalent of a LinearLayout
+##  Android 中的 LinearLayout 在 Flutter 中对应什么
 
-In Android, a LinearLayout is used to lay your widgets out linearly
--horizontally or vertically. In Flutter, you can use the Row widget or Column
-widget to achieve the same result.
+在 Android 中，使用 LinearLayout 来使你的小部件垂直或水平放置。在 Flutter 中，你可以使用 Row 或者 Co​​lumn 来实现相同的效果。
 
-If you notice the two code samples are identical with the exception of the
-"Row" and "Column" widget. The children are the same and this feature can be
-exploited to develop rich layouts that can change overtime with the same
-children.
-
+如果你注意到这两个代码示例中“Row”和“Column”结构异常相似。它们的 child 完全一致，可以利用这个特性在相同 child 的情况下开发丰富的布局。
 <!-- skip -->
 {% prettify dart %}
   @override
@@ -1268,28 +1176,21 @@ children.
   }
 {% endprettify %}
 
-## What is the equivalent of a RelativeLayout
+## Android 中的 RelativeLayout 在 Flutter 对应什么
 
-A RelativeLayout is used to lay your widgets out relative to each other. In
-Flutter there are a few ways to achieve the same result.
+RelativeLayout 用于使你的 Widget 相对于彼此放置。在Flutter中，有几种方法可以实现相同的结果。
 
-You can achieve the result of a RelativeLayout by using a combination of
-Column, Row, and Stack widgets. You can specify rules for the widgets
-constructors on how the children are laid out relative to the parent.
+你可以通过使用 Column，Row 和 Stack 等 Widget 的组合来实现 RelativeLayout 的效果。你可以为小部件构造函数指定相对于父项布局的规则。
 
-A good example of building a RelativeLayout in Flutter is on StackOverflow
+在 Flutter 中构建 RelativeLayout 的一个很好的例子：
 [https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in
 -flutter](https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter)
 
-## What is the equivalent of a ScrollView
+## Android 中 ScrollView 在 Flutter 中对应什么
 
-In Android a ScrollView lets you lay your widgets such that if the users'
-device has a smaller screen than your content, they can scroll.
+在 Android 中，ScrollView 允许你放置 Widget，以便在用户设备的屏幕比你的内容小的情况下可以进行滑动。
 
-In Flutter the easiest way to do this is using the ListView widget. This might
-seem like overkill coming from Android, but in Flutter a ListView widget is
-both a ScrollView and an Android ListView.
-
+在 Flutter 中，最简单的方法是使用 ListView 。在 Flutter 中，ListView 既是 ScrollView 又是 Android中对应的 ListView。
 <!-- skip -->
 {% prettify dart %}
   @override
@@ -1305,18 +1206,14 @@ both a ScrollView and an Android ListView.
   }
 {% endprettify %}
 
-# Gesture Detection and Touch Event Handling
+# 手势检测和触摸事件处理
 
-## How do I add an onClick listener to a widget in Flutter
+## 如何将一个 onClick 监听添加到 Flutter 中的 Widget 中
 
-In Android, you can attach onClick to views such as button by calling
-the method 'setOnClickListener'.
+在 Android 中，可以通过调用方法'setOnClickListener'将 OnClick 附加到按钮等视图上。
 
-In Flutter there are two ways of adding touch listeners
-
-1. If the Widget has support for event detection you can just pass in a
-  function to it and handle it. For example, the RaisedButton has an onPressed
-  parameter
+在 Flutter 中，添加触摸监听器有两种方法：
+1. 如果 Widget 支持事件检测，则可以将一个函数传递给它并进行处理。例如，RaisedButton 有一个 onPressed 参数
 
    <!-- skip -->
   {% prettify dart %}
@@ -1330,8 +1227,7 @@ In Flutter there are two ways of adding touch listeners
   }
    {% endprettify %}
 
-2. If the Widget does not have support for event detection, you can wrap up the
-  widget in a GestureDetector and pass in a function to the onTap parameter.
+2. 如果 Widget 不支持事件检测，则可以将该 Widget 包装到 GestureDetector 中，并将函数传递给 onTap 参数。
 
    <!-- skip -->
   {% prettify dart %}
@@ -1353,54 +1249,39 @@ class SampleApp extends StatelessWidget {
 }
    {% endprettify %}
 
-## How do I handle other gestures on widgets
+## 我如何处理 Widget 上的其他手势
 
-Using the GestureDetector we can listen to a wide range of Gestures such as
+使用 GestureDetector 我们可以监听广泛的手势，例如
 
-- Tap
+- 点击
 
-  - `onTapDown` A pointer that might cause a tap has contacted the screen at a
-    particular location.
-  - `onTapUp` A pointer that will trigger a tap has stopped contacting the
-    screen at a particular location.
-  - `onTap` A tap has occurred.
-  - `onTapCancel` The pointer that previously triggered the `onTapDown` will
-    not end up causing a tap.
+  - `onTapDown` 屏幕某一位置的按下事件。
+  - `onTapUp` 屏幕某一位置的手势抬起事件。
+  - `onTap` 点击事件
+  - `onTapCancel` 值产生的 onTapDown 却没有产生 onTapUp 的事件。
 
-- Double tap
+- 双击
 
-  - `onDoubleTap` The user has tapped the screen at the same location twice in
-    quick succession.
+  - `onDoubleTap` 用户在同一位置进行两次快速点击。
 
-- Long press
+- 长按
 
-  - `onLongPress` A pointer has remained in contact with the screen at the same
-    location for a long period of time.
+  - `onLongPress` 长时间点按屏幕某一点时产生的事件。
 
-- Vertical drag
+- 垂直拖动
 
-  - `onVerticalDragStart` A pointer has contacted the screen and might begin to
-    move vertically.
-  - `onVerticalDragUpdate` A pointer that is in contact with the screen and
-    moving vertically has moved in the vertical direction.
-  - `onVerticalDragEnd` A pointer that was previously in contact with the
-    screen and moving vertically is no longer in contact with the screen and was
-    moving at a specific velocity when it stopped contacting the screen.
+  - `onVerticalDragStart` 屏幕上某一点开始垂直移动的事件。
+  - `onVerticalDragUpdate` 屏幕上某一点垂直移动过程中的更新事件。
+  - `onVerticalDragEnd` 屏幕上某一点停止垂直移动后的事件。
 
-- Horizontal drag
+- 水平拖动
 
-  - `onHorizontalDragStart` A pointer has contacted the screen and might begin
-    to move horizontally.
-  - `onHorizontalDragUpdate` A pointer that is in contact with the screen and
-    moving horizontally has moved in the horizontal direction.
-  - `onHorizontalDragEnd` A pointer that was previously in contact with the
-    screen and moving horizontally is no longer in contact with the screen and was
-    moving at a specific velocity when it stopped contacting the screen.
+  - `onHorizontalDragStart` 屏幕上某一点开始水平移动的事件。
+  - `onHorizontalDragUpdate` 屏幕上某一点水平移动过程中的更新事件。
+  - `onHorizontalDragEnd` 屏幕上某一点停止水平移动后的事件。
 
 
-
-For example here is a GestureDetector for double tap on the FlutterLogo that
-will make it rotate
+例如下面这个例子，是使用 GestureDetector，通过双击 FlutterLogo 来使其旋转：
 
 <!-- skip -->
 {% prettify dart %}
@@ -1437,13 +1318,14 @@ class SampleApp extends StatelessWidget {
 }
 {% endprettify %}
 
-# Listviews & Adapters
+# Listview 和 Adapter
 
-## What is the alternative to a ListView in Flutter
+## Android 中的 ListView 在 Flutter 中的替代品是什么
 
-The equivalent to a ListView in Flutter is … a ListView!
+答案还是 ListView ！
 
-In an Android ListView, you create an adapter that you can then pass into the
+In an Android ListView, you create an
+adapter that you can then pass into the
 ListView which will render each row with what your adapter returns. However you
 have to make sure you recycle your rows , otherwise, you get all sorts of crazy
 visual glitches and memory issues.
