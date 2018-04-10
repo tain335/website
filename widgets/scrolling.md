@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Scrolling Widgets
+title: 滚动 Widgets
 
 permalink: widgets/scrolling/
 ---
-{% include catalogpage.html category="Scrolling"%}      
+{% include catalogpage.html category="Scrolling"%}
