@@ -1,5 +1,7 @@
 # [Flutter][]'s website
 
+[中文翻译流程，见此处](https://github.com/flutter-dev/website/tree/master/zh_CN)
+
 The website for [Flutter][].
 
 [![Build Status](https://travis-ci.org/flutter/website.svg?branch=master)](https://travis-ci.org/flutter/website)
@@ -292,5 +294,5 @@ from dartlang.org, we recommend manually running the following.
   Even better, to check that old URLs are correctly redirected:
 
   ```
-  linkcheck :3474 --input tool/sitemap.txt
+  linkcheck :3474 --input-file tool/sitemap.txt
   ```
