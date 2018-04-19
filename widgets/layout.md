@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Layout Widgets
+title: 布局 Widgets
 
 permalink: widgets/layout/
 ---
-{% include catalogpage.html category="Layout"%}  
+{% include catalogpage.html category="Layout"%}

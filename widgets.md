@@ -1,15 +1,12 @@
 ---
 layout: page
-title: Widgets Catalog
+title: Widget 目录
 permalink: /widgets/
 ---
 
-Create beautiful apps faster with Flutter's
-collection of visual, structural, platform,
-and interactive widgets.
+使用 Flutter 提供的视觉、结构、平台以及可交互的 Widgets 来更快的构建出一个美观的应用程序。
 
-<p>In addition to browsing widgets by category, 
-you can also see all the widgets in the <a href="/widgets/widgetindex/">Flutter widget index</a>.</p>
+<p>除了按照分类来浏览这些 Widget，你也可以在 <a href="/widgets/widgetindex/">Flutter Widget 索引页面</a> 看到所有的 Widget。</p>
 
 <ul class="cards">
 {% for section in site.data.catalog.index %}
@@ -21,7 +18,7 @@ you can also see all the widgets in the <a href="/widgets/widgetindex/">Flutter 
 		        <a class="action-link" href="/widgets/{{section.id}}">VISIT</a>
 		    </div>
 		</div>
-		
+
 	</li>
  {% endfor %}
 </ul>

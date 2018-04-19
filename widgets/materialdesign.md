@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Material Components Widgets
+title: Material Design 风格 Widgets
 
 permalink: widgets/material/
 ---
-{% include catalogpage.html category="Material Components"%}     
+{% include catalogpage.html category="Material Components"%}
